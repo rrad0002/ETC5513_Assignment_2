@@ -60,3 +60,16 @@ A successful render should provide a HTML output with the same contents of your 
     `git commit -m "made changes to example.qmd in testbranch"`
 
     `git push -u origin testbranch`
+
+## 4. Let's amend the commit into a folder
+
+-   Create a folder manually in File Explorer named `data` or using `mkdir data`
+-   A publicly available dataset(.csv) on depressive disorders from the IHME Global Burden of Disease study was used to perform basic exploratory data analysis. Move this file into the `data` folder
+-   Stage using `git add data/` then amend the previous commit using `git commit --amend -m "added dataset to data folder"`
+-   Force push the updated commit to GitHub `git push --force` as we changed history using `--amend`
+
+## 5. Let's create a merge conflict and resolve it
+
+-   First switch back to the main branch using `git checkout main`
+
+-   Modify `example.qmd` in a way that conflicts with `testbranch`

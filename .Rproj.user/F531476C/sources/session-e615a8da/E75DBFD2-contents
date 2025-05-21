@@ -1,0 +1,52 @@
+---
+title: "ETC5513 Assignment 2: Collaborative and Reproducible Practices"
+author: "Rachna Radhakrishna"
+format: 
+  html:
+    code-fold: true
+    toc: true
+    toc-depth: 2
+    fig-cap-location: bottom
+    number-sections: true
+editor: visual
+---
+
+# Introduction
+
+This report demonstrates the utilization of Git and Quarto for collaborative and reproducible workflows in R. The following demonstrates a step-by-step walk through for completing the tasks required for Assignment 2 in the ETC5513 course. It covers setting up a Git repository, managing branches, resolving conflicts, and more, using the command line interface.
+
+## 1. Create a New RStudio Project
+
+-   Open RStudio and create a new RStudio project Select File → New Project → New Directory → New Project
+
+-   Name the project (e.x - "ETC5513_Assignment_2") and choose a location.
+
+-   Next create a ‘.qmd’ file by selecting File → New File → Quarto Document
+
+-   Add some simple markdown content to ‘example.qmd’
+
+-   Knit the file to HTML by Rendering it
+
+A successful render should provide you with a HTML output with the same contents of your Quarto document
+
+## 2. Initialize a Git repository and push to GitHub
+
+-   Initialize the project folder ETC5513_Assignment_2 as a Git repository using `git init`
+
+-   Create a new GitHub repository with the same name and connect the local repository to the remote GitHub repository using
+
+    `git remote add origin https://github.com/rrad0002/ETC5513_Assignment_2.git`
+
+-   Add and commit your initial files using the commands:
+
+    `git add .`
+
+    `git commit -m "Initial commit with example.qmd"`
+
+-   Push the initial commit to the `main` branch
+
+    `git branch -M main`
+
+    `git push -u origin main`
+
+## 

@@ -1,0 +1,60 @@
+---
+title: "Example Quarto Document - A2"
+author: "Rachna Radhakrishna"
+format: html
+editor: visual
+---
+
+# Example QMD File
+
+This is a simple Quarto Markdown file for Assignment 2.
+
+```{r gratitude_chunk}
+print("Thank you for being an awesome Professor!")
+```
+
+```{r fix_conflict_S6}
+##Resolving the conflict with a new chunk
+print("Thank you for your time and patience")
+
+```
+
+The above section was added manually to resolve the merge conflict between main and testbranch and combine ideas from both branches.
+
+```{r load_dataset_a2, message=FALSE, warning=FALSE}
+library(tidyverse)
+
+# Load the dataset
+df_a2 <- read_csv("data/mental_health_prevalence_GBD2021.csv")
+```
+
+```{r overview_df_a2}
+glimpse(df_a2)
+```
+
+## Global Trends in Depressive Disorders
+
+As depicted in @prevalence-global-depression-plot, the global prevalence of depressive disorders remained fairly stable from 1990 to 2018 and a noticeable increase during the COVID-19 pandemic years.
+
+```{r plot_S10}
+#| label: prevalence-global-depression-plot
+#| fig-cap: "Global prevalence of depressive disorders from 1990 to 2021 with uncertainity bounds represented using the shaded area"
+#| warning: false
+#| message: false
+
+library(ggplot2)
+
+df_a2 %>%
+  filter(location_name == "Global",
+         cause_name == "Depressive disorders",
+         metric_name == "Percent") %>%
+  ggplot(aes(x = year, y = val * 100)) +
+  geom_ribbon(aes(ymin = lower * 100, ymax = upper * 100), fill = "lightgray", alpha = 0.5) +
+  geom_line(color = "blue", size = 0.8) +
+  labs(
+    title = "Global Prevalence of Depressive Disorders (1990–2021)",
+    x = "Year",
+    y = "Prevalence (%)"
+  ) +
+  theme_minimal(base_size = 13)
+```

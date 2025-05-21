@@ -49,4 +49,6 @@ A successful render should provide you with a HTML output with the same contents
 
     `git push -u origin main`
 
-## 
+## 5. Let's create a merge conflict and resolve it
+
+"This text chunk is being created to modify the markdown document to create a conflict during merging with the test branch"

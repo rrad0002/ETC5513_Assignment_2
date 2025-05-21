@@ -18,16 +18,12 @@ This report demonstrates the utilization of Git and Quarto for collaborative and
 ## 1. Create a New RStudio Project
 
 -   Open RStudio and create a new RStudio project Select File → New Project → New Directory → New Project
-
 -   Name the project (e.x - "ETC5513_Assignment_2") and choose a location.
-
 -   Next create a ‘.qmd’ file by selecting File → New File → Quarto Document
-
 -   Add some simple markdown content to ‘example.qmd’
-
 -   Knit the file to HTML by Rendering it
 
-A successful render should provide you with a HTML output with the same contents of your Quarto document
+A successful render should provide a HTML output with the same contents of your Quarto document
 
 ## 2. Initialize a Git repository and push to GitHub
 
@@ -49,4 +45,18 @@ A successful render should provide you with a HTML output with the same contents
 
     `git push -u origin main`
 
-## 
+## 3. Create and use a new branch
+
+-   Create a new branch called `testbranch` using the command `git checkout -b testbranch`
+
+-   Modify `example.qmd`
+
+    "This entire section is a modification to demonstrate a branch level edit for Assignment 2"
+
+-   Add, commit, and push the changes
+
+    `git add example.qmd`
+
+    `git commit -m "made changes to example.qmd in testbranch"`
+
+    `git push -u origin testbranch`

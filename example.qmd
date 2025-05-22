@@ -11,11 +11,11 @@ format:
 editor: visual
 ---
 
-# Introduction
+## Introduction
 
 This report demonstrates the utilization of Git and Quarto for collaborative and reproducible workflows in R. The following demonstrates a step-by-step walk through for completing the tasks required for Assignment 2 in the ETC5513 course. It covers setting up a Git repository, managing branches, resolving conflicts, and more, using the command line interface.
 
-## 1. Create a New RStudio Project
+## Create a New RStudio Project
 
 -   Open RStudio and create a new RStudio project Select File → New Project → New Directory → New Project
 -   Name the project (e.x - "ETC5513_Assignment_2") and choose a location.
@@ -25,7 +25,7 @@ This report demonstrates the utilization of Git and Quarto for collaborative and
 
 A successful render should provide a HTML output with the same contents of your Quarto document
 
-## 2. Initialize a Git repository and push to GitHub
+## Initialize a Git repository and push to GitHub
 
 -   Initialize the project folder ETC5513_Assignment_2 as a Git repository using `git init`
 
@@ -45,7 +45,7 @@ A successful render should provide a HTML output with the same contents of your 
 
     `git push -u origin main`
 
-## 3. Create and use a new branch
+## Create and use a new branch
 
 -   Create a new branch called `testbranch` using the command `git checkout -b testbranch`
 
@@ -61,14 +61,14 @@ A successful render should provide a HTML output with the same contents of your 
 
     `git push -u origin testbranch`
 
-## 4. Let's amend the commit into a folder
+## Let's amend the commit into a folder
 
 -   Create a folder manually in File Explorer named `data` or using `mkdir data`
 -   A publicly available dataset(.csv) on depressive disorders from the IHME Global Burden of Disease study was used to perform basic exploratory data analysis. Move this file into the `data` folder
 -   Stage using `git add data/` then amend the previous commit using `git commit --amend -m "added dataset to data folder"`
 -   Force push the updated commit to GitHub `git push --force` as we changed history using `--amend`
 
-## 5. Let's create a merge conflict and resolve it
+## Let's create a merge conflict and resolve it
 
 -   First switch back to the main branch using `git checkout main`
 
@@ -95,3 +95,70 @@ A successful render should provide a HTML output with the same contents of your 
     `git commit -m "successfully resolved merge conflict"`
 
     `git push`
+
+## Tag the latest commit according to instructions
+
+-   Tag this commit `v1.0` on `main` using an annotated tag
+
+    `git tag -a v1.0 -m "latest commit - first completed version"`
+
+    `git push origin v1.0`
+
+## Delete `testbranch` locally and remotely
+
+-   Delete the branch locally using `git branch -d testbranch`
+-   Delete the branch remotely using `git push origin --delete testbranch`
+
+## Let's view the Git log
+
+-   Run the command `git log --oneline --graph --all` to view
+
+## Undo a commit without losing changes
+
+-   Let's create a simple plot according to instructions using the dataset stored in the data folder
+
+```{r load_dataset_a2, message=FALSE, warning=FALSE}
+library(tidyverse)
+
+# Load the dataset
+df_a2 <- read_csv("data/mental_health_prevalence_GBD2021.csv")
+```
+
+```{r overview_df_a2}
+glimpse(df_a2)
+```
+
+### Global Trends in Depressive Disorders
+
+As depicted in plot below, the global prevalence of depressive disorders remained fairly stable from 1990 to 2018 and a noticeable increase during the COVID-19 pandemic years(2019-2021)
+
+```{r plot_S10}
+#| label: prevalence-global-depression-plot
+#| fig-cap: "Global prevalence of depressive disorders from 1990 to 2021 with uncertainity bounds represented using the shaded area"
+#| warning: false
+#| message: false
+
+library(ggplot2)
+
+df_a2 %>%
+  filter(location_name == "Global",
+         cause_name == "Depressive disorders",
+         metric_name == "Percent") %>%
+  ggplot(aes(x = year, y = val * 100)) +
+  geom_ribbon(aes(ymin = lower * 100, ymax = upper * 100), fill = "lightgray", alpha = 0.5) +
+  geom_line(color = "blue", size = 0.8) +
+  labs(
+    title = "Global Prevalence of Depressive Disorders (1990–2021)",
+    x = "Year",
+    y = "Prevalence (%)"
+  ) +
+  theme_minimal(base_size = 13)
+```
+
+-   Make sure to commit changes `git add example.qmd` and `git commit -m "added plot section to example.qmd"`
+-   Now to undo the commit without making changes use command `git reset --soft HEAD~1`
+    -   We use `--soft` specifically as it moves HEAD back 1 commit but keeps changes staged whereas the default setting of `git reset` unstages the changes.
+
+## Conclusion
+
+This report was created to demonstrate the assessment requirements using Git, Quarto, and R. These practices are certainly essential for collaborative and smoothly operational work in professional and research environments.
